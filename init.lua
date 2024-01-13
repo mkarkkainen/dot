@@ -100,7 +100,6 @@ require('lazy').setup({
             lsp.setup()
 
             local cmp = require("cmp")
-lo  
             cmp.setup({
                 mapping = {
                     ["<CR>"] = cmp.mapping.confirm({ select = false }),
