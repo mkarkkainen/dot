@@ -1,7 +1,5 @@
-require("config.keymaps")
-require("config.set")
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+require("config/keymaps")
+require("config/set")
 vim.opt.termguicolors = true
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -53,6 +51,7 @@ require('lazy').setup({
                 ensure_installed = {
                     "tsserver",
                     "tailwindcss",
+                    "gopls",
                     "astro",
                     "lua_ls",
                     "volar",
@@ -185,6 +184,7 @@ require('lazy').setup({
                     "scss",
                     "html",
                     "vue",
+                    "go",
                     "javascript",
                     "json",
                     "typescript",

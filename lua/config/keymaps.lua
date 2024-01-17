@@ -16,10 +16,11 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
 
 -- Floating Terminal
-vim.keymap.set("n", "<C-/>", ":FloatermToggle<CR>")
-vim.keymap.set("t", "<C-/>", "<C-\\><C-n>:FloatermHide<CR>")
-vim.keymap.set("t", "<C-,>", "<C-\\><C-n>:FloatermPrev")
-vim.keymap.set("t", "<C-.>", "<C-\\><C-n>:FloatermNext")
+vim.keymap.set("n", "<C-n>", ":FloatermNew<CR>")
+vim.keymap.set("n", "<C-/>", ": FloatermToggle<CR>")
+vim.keymap.set("t", "<C-/>", "<C-\\><C-n>: FloatermHide<CR>")
+vim.keymap.set("t", "<C-,>", "<C-\\><C-n>:FloatermPrev<CR>")
+vim.keymap.set("t", "<C-.>", "<C-\\><C-n>:FloatermNext<CR>")
 
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
