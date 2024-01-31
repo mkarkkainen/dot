@@ -1,6 +1,5 @@
 require("config/keymaps")
 require("config/set")
-vim.opt.termguicolors = true
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -17,7 +16,7 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require('lazy').setup({
 
-    { 'rose-pine/neovim',  name = 'rose-pine' },
+    { 'rose-pine/neovim',        name = 'rose-pine' },
     { "tpope/vim-fugitive" },
 
     {
@@ -290,7 +289,6 @@ require 'lspconfig'.astro.setup({
         }
     },
 })
-
 require 'lspconfig'.gopls.setup({})
 -- require'lspconfig'.astro.setup { init_options = { on_attach = on_attach, capabilities = capabilities, configuration = {}, typescript = { serverPath = vim.fs.normalize '/usr/local/lib/node_modules/typescript/lib/tsserverlibrary.js', }, }, }
 
