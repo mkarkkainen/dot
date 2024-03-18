@@ -15,8 +15,8 @@ end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require('lazy').setup({
-
-    { 'rose-pine/neovim',        name = 'rose-pine' },
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+--   { 'rose-pine/neovim',        name = 'rose-pine' },
     { "tpope/vim-fugitive" },
 
     {
@@ -293,7 +293,7 @@ require 'lspconfig'.gopls.setup({})
 -- require'lspconfig'.astro.setup { init_options = { on_attach = on_attach, capabilities = capabilities, configuration = {}, typescript = { serverPath = vim.fs.normalize '/usr/local/lib/node_modules/typescript/lib/tsserverlibrary.js', }, }, }
 
 function ColorMyPencil(color)
-    color = color or "rose-pine"
+    color = color or "catppuccin"
     vim.cmd.colorscheme(color)
 
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
