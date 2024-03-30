@@ -15,6 +15,11 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
 
+
+-- Jump to start/end of line
+vim.keymap.set("n", "<C-h>", "0")
+vim.keymap.set("n", "<C-l>", "$")
+
 -- Floating Terminal
 vim.keymap.set("n", "<C-n>", ":FloatermNew<CR>")
 vim.keymap.set("n", "<C-/>", ": FloatermToggle<CR>")
@@ -22,15 +27,16 @@ vim.keymap.set("t", "<C-/>", "<C-\\><C-n>: FloatermHide<CR>")
 vim.keymap.set("t", "<C-,>", "<C-\\><C-n>:FloatermPrev<CR>")
 vim.keymap.set("t", "<C-.>", "<C-\\><C-n>:FloatermNext<CR>")
 
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 vim.keymap.set("i", "kj", "<Esc>")
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux new tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")

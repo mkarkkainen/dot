@@ -15,8 +15,8 @@ end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require('lazy').setup({
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
---   { 'rose-pine/neovim',        name = 'rose-pine' },
+    { "catppuccin/nvim",   name = "catppuccin", priority = 1000 },
+    --   { 'rose-pine/neovim',        name = 'rose-pine' },
     { "tpope/vim-fugitive" },
 
     {
@@ -56,6 +56,7 @@ require('lazy').setup({
                     "volar",
                     "jsonls",
                     "efm",
+                    "sqls",
                 },
                 -- auto-install configured servers (with lspconfig)
                 automatic_installation = true, -- not the same as ensure_installed
@@ -160,6 +161,7 @@ require('lazy').setup({
             { "<leader>fg", "<cmd>Telescope live_grep<cr>" },
             { "<C-p>",      "<cmd>Telescope git_files<cr>" }
         },
+
     },
 
     {
@@ -183,6 +185,7 @@ require('lazy').setup({
                     "scss",
                     "html",
                     "vue",
+                    "sql",
                     "go",
                     "javascript",
                     "json",
@@ -250,17 +253,6 @@ require('lazy').setup({
         end
     },
 
-
-    {
-        'Raimondi/delimitMate', -- automatic closing of surroundings in insert mode
-        config = function()
-            vim.g.delimitMate_expand_cr = 2
-            vim.g.delimitMate_expand_space = true
-            vim.g.delimitMate_matchpairs = "(:),[:],{:},<:>"
-            vim.cmd([[au FileType html,xml let b:delimitMate_matchpairs = "(:),[:],{:}"]])
-        end
-    },
-
 })
 
 
@@ -282,7 +274,7 @@ require('mason-lspconfig').setup({
     },
 })
 
-require 'lspconfig'.astro.setup({
+require('lspconfig').astro.setup({
     init_options = {
         typescript = {
             tsdk = vim.fs.normalize('/usr/local/lib/node_modules/typescript/lib/')
