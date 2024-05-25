@@ -2,6 +2,7 @@ require("config/keymaps")
 require("config/set")
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
         "git",
@@ -12,15 +13,46 @@ if not vim.loop.fs_stat(lazypath) then
         lazypath,
     })
 end
+
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require('lazy').setup({
-    { "catppuccin/nvim",   name = "catppuccin", priority = 1000 },
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     --   { 'rose-pine/neovim',        name = 'rose-pine' },
     { "tpope/vim-fugitive" },
 
     {
-        "https://github.com/williamboman/mason.nvim",
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        build = ":Copilot auth",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup({
+                suggestion = { enabled = false },
+                panel = { enabled = false },
+                openai_params = {
+                    model = "gpt-4o",
+                },
+                openai_edit_params = {
+                    mpdel = "gpt-4o",
+                },
+            })
+        end,
+    },
+
+    {
+        "windwp/nvim-ts-autotag"
+    },
+
+    {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+            require("copilot_cmp").setup()
+        end,
+    },
+
+    {
+        "williamboman/mason.nvim",
         dependencies = {
             "https://github.com/williamboman/mason-lspconfig.nvim",
             "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -103,7 +135,15 @@ require('lazy').setup({
                 mapping = {
                     ["<CR>"] = cmp.mapping.confirm({ select = false }),
                     ["<C-Space>"] = cmp.mapping.complete(),
-                }
+                },
+                sources = {
+                    -- Copilot Source
+                    { name = "copilot",  group_index = 2 },
+                    -- Other Sources
+                    { name = "nvim_lsp", group_index = 2 },
+                    { name = "path",     group_index = 2 },
+                    { name = "luasnip",  group_index = 2 },
+                },
             })
 
             vim.opt.termguicolors = true
@@ -138,7 +178,7 @@ require('lazy').setup({
         'hrsh7th/nvim-cmp',
         dependencies = {
             { 'L3MON4D3/LuaSnip' }
-        },
+        }
     },
 
     {
@@ -165,40 +205,9 @@ require('lazy').setup({
     },
 
     {
-        "https://github.com/nvim-treesitter/nvim-treesitter",
+        "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPre", "BufNewFile" },
         build = ":TSUpdate",
-        dependencies = {
-            "https://github.com/windwp/nvim-ts-autotag",
-        },
-        config = function()
-            local treesitter = require("nvim-treesitter.configs")
-
-            treesitter.setup({
-                highlight = { enable = true },
-                indent = { enable = true },
-                autotag = { enable = true },
-                auto_install = true,
-                ensure_installed = {
-                    "lua",
-                    "css",
-                    "scss",
-                    "html",
-                    "vue",
-                    "sql",
-                    "go",
-                    "javascript",
-                    "json",
-                    "typescript",
-                    "tsx",
-                    "astro",
-                    "markdown",
-                    "markdown_inline",
-                    "gitignore",
-                    "gitcommit",
-                },
-            })
-        end,
     },
 
     {
@@ -209,7 +218,7 @@ require('lazy').setup({
             require("harpoon"):setup()
         end,
         keys = {
-            { "<leader>A", function() require("harpoon"):list():append() end,  desc = "harpoon file", },
+            { "<leader>A", function() require("harpoon"):list():add() end,     desc = "harpoon file", },
             {
                 "<leader>a",
                 function()
@@ -253,8 +262,39 @@ require('lazy').setup({
         end
     },
 
+    {
+        ''
+    },
+
 })
 
+require('nvim-treesitter.configs').setup({
+    ensure_installed = { 'astro', 'tsx', 'typescript', 'html', 'lua', 'css', 'sql', 'go', 'javascript', 'json', 'markdown', 'gitignore', 'gitcommit' },
+    indent = {
+        enable = true
+    },
+    auto_install = true,
+    highlight = {
+        enable = true
+    }
+})
+
+require('nvim-ts-autotag').setup({
+  opts = {
+    -- Defaults
+    enable_close = true, -- Auto close tags
+    enable_rename = true, -- Auto rename pairs of tags
+    enable_close_on_slash = false -- Auto close on trailing </
+  },
+  -- Also override individual filetype configs, these take priority.
+  -- Empty by default, useful if one of the "opts" global settings
+  -- doesn't work well in a specific filetype
+  per_filetype = {
+    ["html"] = {
+      enable_close = false
+    }
+  }
+})
 
 -- Use lsp_zero to manage lsp attachments.
 local lsp_zero = require('lsp-zero')

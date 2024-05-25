@@ -15,6 +15,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
 
+vim.keymap.set("n", "<leader>e", ":lua vim.diagnostic.open_float()<CR>")
 
 -- Jump to start/end of line
 vim.keymap.set("n", "<C-h>", "0")
